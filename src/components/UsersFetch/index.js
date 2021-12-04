@@ -5,16 +5,18 @@ import UsersList from '../UsersList/index.js';
 function UserFetch(){
     const [users, setUsers] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
+    const [page, setPage] = useState(0)
 
     useEffect(() => {
-        fetch(`https://randomuser.me/api/?inc=name,login,email&results=10`)
+        fetch(`https://randomuser.me/api/?page=${page}&results=10&seed=abc`)
           .then((response) => response.json())
           .then(({ results }) => setUsers(results))
           .then(() => setIsFetching(true))
-      }, [setUsers]);
+          
+      }, [page, setUsers]);
 
       const next = () => {
-        window.location.reload(); 
+        setPage(page+1)
     }
 
     const prev = () => {
@@ -30,6 +32,7 @@ function UserFetch(){
     if(isFetching){
         return <>
             <h1>Users</h1>
+            <h1>{page}</h1>
             <ul className='list'>{users.map(mapUsers)}</ul>
             <div>
                 <button onClick={prev}>Prev</button>   
