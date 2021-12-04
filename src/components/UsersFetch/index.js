@@ -20,7 +20,7 @@ function UserFetch(){
     }
 
     const prev = () => {
-        window.location.reload(); 
+        if(page < 1){alert('Wrong')} else {setPage(page-1)}
         
     }
 
